@@ -19,7 +19,7 @@ concurrency:
 
 jobs:
   make-sqlite3:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     defaults:
       run:
         working-directory: libsql-sqlite3

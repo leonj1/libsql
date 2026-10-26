@@ -20,7 +20,7 @@ concurrency:
 
 jobs:
   checks:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Run Checks
     env:
       RUSTFLAGS: -D warnings --cfg tokio_unstable
@@ -72,7 +72,7 @@ jobs:
 
   features:
     name: Check features and unused dependencies
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - uses: actions/checkout@v3
       - uses: dtolnay/rust-toolchain@nightly
@@ -85,7 +85,7 @@ jobs:
       - run: RUSTFLAGS="-D warnings --cfg tokio_unstable" cargo check -p libsql --no-default-features --features remote
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Run Tests
     env:
       RUSTFLAGS: -D warnings --cfg tokio_unstable
@@ -176,7 +176,7 @@ jobs:
   #       LIBSQL_EXPERIMENTAL_PAGER: 1000
   #     run: cargo nextest run
   test-encryption:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     name: Run Tests
     env:
       RUSTFLAGS: -D warnings --cfg tokio_unstable
@@ -220,7 +220,7 @@ jobs:
     - name: embedded replica encryption tests
       run: cargo xtask test-encryption
   windows:
-    runs-on: windows-latest
+    runs-on: [self-hosted, windows, x64]
     name: Windows checks
     steps:
       - uses: hecrj/setup-rust-action@v2

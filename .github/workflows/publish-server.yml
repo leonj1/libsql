@@ -14,7 +14,7 @@ env:
 jobs:
   build-amd64:
     permissions: write-all
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     env:
       platform: "linux/amd64"
     steps:
@@ -75,7 +75,7 @@ jobs:
 
   build-amd64-debug:
     permissions: write-all
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     env:
       platform: "linux/amd64"
     steps:
@@ -124,7 +124,7 @@ jobs:
 
   build-arm64:
     permissions: write-all
-    runs-on: ubuntu-24.04-arm
+    runs-on: [self-hosted, linux, ARM64]
     env:
       platform: "linux/arm64"
     steps:
@@ -186,7 +186,7 @@ jobs:
 
   merge:
     permissions: write-all
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     needs:
       - build-amd64
       - build-arm64

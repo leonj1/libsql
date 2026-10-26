@@ -5,7 +5,7 @@ on:
 
 jobs:
   install:
-    runs-on: ${{ matrix.os }}
+    runs-on: "${{ (matrix.os) == 'ubuntu-latest' && fromJSON('[\"self-hosted\",\"linux\",\"x64\"]') || (matrix.os) == 'macos-14' && fromJSON('[\"self-hosted\",\"macOS\",\"ARM64\"]') || (matrix.os) }}"
     strategy:
       matrix:
         os: [ ubuntu-latest, macos-14 ]

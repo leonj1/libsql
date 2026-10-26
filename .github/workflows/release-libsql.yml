@@ -10,7 +10,7 @@ jobs:
         
   start-runner:
     name: Start self-hosted EC2 runner
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     outputs:
       label: ${{ steps.start-ec2-runner.outputs.label }}
       ec2-instance-id: ${{ steps.start-ec2-runner.outputs.ec2-instance-id }}
@@ -47,7 +47,7 @@ jobs:
           - 'wasm-udf'
           - ''
 
-    runs-on: ${{ matrix.os }}
+    runs-on: "${{ (matrix.os) == 'ubuntu-latest' && fromJSON('[\"self-hosted\",\"linux\",\"x64\"]') || (matrix.os) == 'macos-14' && fromJSON('[\"self-hosted\",\"macOS\",\"ARM64\"]') || (matrix.os) }}"
     steps:
       #Debug output + special rustup config for the ubuntu/aarch64 runner
       - name: show step matrix details
@@ -189,7 +189,7 @@ jobs:
     needs:
       - start-runner # required to get output from the start-runner job
       - build_binaries # required to wait when the main job is done
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     if: ${{ always() }} # required to stop the runner even if the error happened in the previous jobs
     steps:
       - name: Configure AWS credentials
